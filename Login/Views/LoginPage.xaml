@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Login.Views.LoginPage"
+             xmlns:viewmodel="clr-namespace:Login.ViewModels"
+             x:DataType="viewmodel:LoginPageViewModel"
+             Title="LoginPage">
+    <VerticalStackLayout>
+        <Entry Placeholder="הכנס שם משתמש" PlaceholderColor="Green"
+            Text="{Binding Name}"/>
+
+        <Entry Placeholder="הכנס סיסמה" PlaceholderColor="Green"
+     Text="{Binding Password}"/>
+        
+        
+        <Button Text="התחבר" WidthRequest="150" Command="{Binding SearchByNameAndPasswordCommand}"/>
+        <Label>
+            <Label.FormattedText>
+                <FormattedString>
+                    <Span Text="התחברות"/>
+                </FormattedString>
+            </Label.FormattedText>
+        </Label>
+    </VerticalStackLayout>
+</ContentPage>
