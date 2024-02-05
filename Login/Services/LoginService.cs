@@ -8,13 +8,13 @@ using System.Threading.Tasks;
 
 namespace Login.Services
 {
-    public class UsersList
-    {
+   
         public class LoginServices
         {
             public List<User> Users { get; set; }
             public LoginServices()
             {
+            Users = new List<User>();
                 FillUsers();
             }
 
@@ -57,5 +57,5 @@ namespace Login.Services
         }
             
        
-    }
+    
 }

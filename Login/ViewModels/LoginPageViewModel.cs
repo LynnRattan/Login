@@ -22,7 +22,7 @@ namespace Login.ViewModels
         public string Password { get { return password; } set { password = value; OnPropertyChanged(); ((Command)LoginCommand).ChangeCanExecute(); ((Command)CancelCommand).ChangeCanExecute(); } }
 
         public string TheLogin { get { return theLogin; } set { theLogin = value; OnPropertyChanged(); } }
-        public string TheLoginColor { get { return theLogin; } set { theLogin = value; OnPropertyChanged(); } }
+        public Color TheLoginColor { get { return theLoginColor; } set { theLoginColor = value; OnPropertyChanged(); } }
 
         public ICommand LoginCommand { get; set; }
         private User user;
@@ -44,20 +44,20 @@ namespace Login.ViewModels
             user.Password = password;
             if(service.LoginCheck(user)==true)
             {
-                theLogin = "התחבר בהצלחה";
-                theLoginColor = Colors.Green;
+                TheLogin = "התחבר בהצלחה";
+                TheLoginColor = Colors.Green;
             }
             else
             {
-                theLogin = "התחברות נכשלה";
-                theLoginColor = Colors.Red;
+                TheLogin = "התחברות נכשלה";
+                TheLoginColor = Colors.Red;
             }
 
         }
 
         private void Cancel()
         {
-            theLogin = string.Empty;
+            TheLogin = string.Empty;
             Name = string.Empty;
             Password = string.Empty;
             user = new User();
