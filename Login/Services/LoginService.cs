@@ -1,5 +1,5 @@
 ﻿using Login.Models;
-using CoreML;
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,25 +8,54 @@ using System.Threading.Tasks;
 
 namespace Login.Services
 {
-    class UsersList
+    public class UsersList
     {
-        public List<User> Users { get; private set; }
-        public UsersList()
+        public class LoginServices
         {
-            this.Users = new List<User>();
-            Users.Add(new User());
+            public List<User> Users { get; set; }
+            public LoginServices()
+            {
+                FillUsers();
+            }
+
+            public bool LoginCheck(User user)
+            {
+                return Users.Any(x => x.Name == user.Name && x.Password == user.Password);
+            }
+
+            public void AddUser(User user)
+            {
+                Users.Add(user);
+            }
+
+            private void FillUsers()
+            {
+                Users.Add(new User()
+                {
+                    Name = "smth1",
+                    Password = "12345"
+                });
+
+                Users.Add(new User()
+                {
+                    Name = "smth2",
+                    Password = "123456"
+                });
+
+                Users.Add(new User()
+                {
+                    Name = "smth3",
+                    Password = "123457"
+                });
+
+                Users.Add(new User()
+                {
+                    Name = "smth4",
+                    Password = "123458"
+                });
+            }
         }
-    }
-        public class LoginService
-    {
-        public LoginService()
-        {
-            this.Users = new UsersList().Users;
-        }
-        List<User> Users;
-        public User FindUserByNameAndPassword(string name,string password)
-        {
-            return Users.Where(x => x.Name == name && x.Password==password).FirstOrDefault();
-        }
+            
+       
     }
 }

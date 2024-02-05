@@ -13,13 +13,8 @@
      Text="{Binding Password}"/>
         
         
-        <Button Text="התחבר" WidthRequest="150" Command="{Binding SearchByNameAndPasswordCommand}"/>
-        <Label>
-            <Label.FormattedText>
-                <FormattedString>
-                    <Span Text="התחברות"/>
-                </FormattedString>
-            </Label.FormattedText>
-        </Label>
+        <Button Text="התחבר" WidthRequest="150" Command="{Binding LoginCommand}"/>
+        <Button Text="בטל" WidthRequest="150" Command="{Binding CancelCommand}"/>
+        <Label Text="{Binding TheLogin}" TextColor="{Binding TheLoginColor}"/>
     </VerticalStackLayout>
 </ContentPage>

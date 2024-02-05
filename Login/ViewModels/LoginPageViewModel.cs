@@ -1,4 +1,4 @@
-﻿using CoreML;
+﻿
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.Metrics;
@@ -15,38 +15,54 @@ namespace Login.ViewModels
     {
         private string name;
         private string password;
-        public string Name { get { return name; } set { name = value; OnPropertyChanged(); ((Command)SearchByNameCommand).ChangeCanExecute(); } }
+        private string theLogin;
+        private Color theLoginColor;
+        public string Name { get { return name; } set { name = value; OnPropertyChanged(); ((Command)LoginCommand).ChangeCanExecute(); ((Command)CancelCommand).ChangeCanExecute(); } }
 
-        public string Password { get { return password; } set { password = value; OnPropertyChanged(); ((Command)SearchByPasswordCommand).ChangeCanExecute(); } }
+        public string Password { get { return password; } set { password = value; OnPropertyChanged(); ((Command)LoginCommand).ChangeCanExecute(); ((Command)CancelCommand).ChangeCanExecute(); } }
 
-        public ICommand SearchByNameCommand { get; set; }
+        public string TheLogin { get { return theLogin; } set { theLogin = value; OnPropertyChanged(); } }
+        public string TheLoginColor { get { return theLogin; } set { theLogin = value; OnPropertyChanged(); } }
+
+        public ICommand LoginCommand { get; set; }
         private User user;
-        public ICommand SearchByPasswordCommand { get; set; }
+        public ICommand CancelCommand { get; set; }
 
         
-        public LoginageViewModel()
+        public LoginPageViewModel()
         {
-            user = new User() { Name = "התחברות נכשלה" };
-            SearchByNameCommand = new Command(FindUserByName(Name), () => !String.IsNullOrEmpty(Name));
-        }
+            user = new User();
+            LoginCommand = new Command(Login,() => !String.IsNullOrEmpty(Name)&& !String.IsNullOrEmpty(Password));
+            CancelCommand = new Command(Cancel, () => !String.IsNullOrEmpty(Name) || !String.IsNullOrEmpty(Password));
+        } 
 
-        private void FindUser()
+      
+        private void Login()
         {
-            LoginService service = new LoginService();
-            List<Monkey> lst = service.FindMonkeysByLocation(Country);
-            if (lst.Count > 0)
-                monkey = lst[0];
+            LoginServices service = new LoginServices();
+            user.Name = name;
+            user.Password = password;
+            if(service.LoginCheck(user)==true)
+            {
+                theLogin = "התחבר בהצלחה";
+                theLoginColor = Colors.Green;
+            }
             else
-                monkey = new Monkey() { Name = "אין קופים להצגה" };
-            Count = lst.Count;
-            RefreshData();
-            Country = null;
+            {
+                theLogin = "התחברות נכשלה";
+                theLoginColor = Colors.Red;
+            }
+
         }
 
-        public void RefreshData()
+        private void Cancel()
         {
-            OnPropertyChanged("Name");
-            OnPropertyChanged(nameof(ImageUrl));
+            theLogin = string.Empty;
+            Name = string.Empty;
+            Password = string.Empty;
+            user = new User();
         }
+
+      
     }
 }
